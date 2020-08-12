@@ -9,11 +9,11 @@ exports.getTodos = async (req, res, next) => {
   let offset = req.query.offset;
   let limit = req.query.limit;
 
-  let query = `select * from Todos limit ${offset},${limit}`;
+  let query = `select * from todo limit ${offset},${limit}`;
 
   try {
     [rows] = await connection.query(query);
-    res.status(200).json({ success: true, Todos: rows, cnt: rows.length });
+    res.status(200).json({ success: true, todo: rows, cnt: rows.length });
     return;
   } catch (e) {
     res.status(500).json({ success: false });
@@ -33,7 +33,7 @@ exports.Todos_complete = async (req, res, next) => {
 
   try {
     [result] = await connection.query(query);
-    res.status(200).json({ success: true, completed: result[0] });
+    res.status(200).json({ success: true, completed: result });
   } catch (e) {
     res.status(500).json({ success: false });
   }
